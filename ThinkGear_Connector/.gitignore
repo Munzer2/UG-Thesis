@@ -1,0 +1,7 @@
+*.dll
+*.txt
+/zh-CHS
+/zh-CHT
+slideshow.py
+*.log
+*.exe
