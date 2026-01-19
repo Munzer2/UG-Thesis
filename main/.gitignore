@@ -5,3 +5,4 @@
 slideshow.py
 *.log
 *.exe
+venv/
