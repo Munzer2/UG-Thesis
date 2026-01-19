@@ -6,3 +6,4 @@ slideshow.py
 *.log
 *.exe
 venv/
+*.config
