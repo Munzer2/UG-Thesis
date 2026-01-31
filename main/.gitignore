@@ -7,3 +7,7 @@ slideshow.py
 *.exe
 venv/
 *.config
+prev_web_images/
+Ratings/
+Images/
+moderate_2/
