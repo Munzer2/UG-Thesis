@@ -1,5 +1,4 @@
 *.dll
-!requirements.txt
 *.txt
 /zh-CHS
 /zh-CHT
