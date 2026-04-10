@@ -7,21 +7,78 @@ Targets are based on actual visual elements present in the screenshots.
 """
 
 SIMPLE_DESIGN_TARGETS = [
+    # 3B Software - Blue gradient software company
+    {
+        "folder": "design_A_simple",
+        "file": "3.png",
+        "target": "Find the \"ABOUT US\" menu"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "3.png",
+        "target": "Find the CUSTOMER CARE link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "3.png",
+        "target": "Find the Digital Entertainment section"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "3.png",
+        "target": "Find \"Terms and Conditions\""
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "3.png",
+        "target": "Find the \"Partner Solutions\"section"
+    },
+    # Addresses.com - People lookup directory
+    {
+        "folder": "design_A_simple",
+        "file": "11.png",
+        "target": "Find the Feedback section"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "11.png",
+        "target": "Find the Business Lookup button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "11.png",
+        "target": "Find the Reverse Phone Lookup section"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "11.png",
+        "target": "Find the \"Maps and Directions\" section"
+    },
     # Georgia DNR Wildlife Resources - Government website with clean layout
     {
         "folder": "design_A_simple",
         "file": "120.png",
-        "target": "Find the HUNTING navigation button"
+        "target": "Find the \"Historic Preservation\" button"
     },
     {
         "folder": "design_A_simple",
         "file": "120.png",
-        "target": "Find the search box"
+        "target": "Find the \"GO\" button"
     },
     {
         "folder": "design_A_simple",
         "file": "120.png",
-        "target": "Find the PERMITS & SERVICES section"
+        "target": "Find the \"select a quick link\" dropdown"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "120.png",
+        "target": "Find the \"FAQ\" button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "120.png",
+        "target": "Find the \"Calendar of Events\""
     },
 
     # GT Bikes/Earn Your Wings - Motorcycle company with black background
@@ -38,7 +95,17 @@ SIMPLE_DESIGN_TARGETS = [
     {
         "folder": "design_A_simple",
         "file": "124.png",
-        "target": "Find the search field"
+        "target": "Find the triangle shaped button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "124.png",
+        "target": "Find the US flag icon"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "124.png",
+        "target": "Find the facebook icon"
     },
 
     # Infor - Business software company with modern design
@@ -50,12 +117,22 @@ SIMPLE_DESIGN_TARGETS = [
     {
         "folder": "design_A_simple",
         "file": "142.png",
-        "target": "Find the More information button"
+        "target": "Find the EVENTS menu"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "142.png",
+        "target": "Find the twitter icon link"
     },
     {
         "folder": "design_A_simple",
         "file": "142.png",
         "target": "Find the CHAT link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "142.png",
+        "target": "Find the \"More information\" button"
     },
 
     # RockYou Zoo World 2 - Gaming website with bright yellow background
@@ -74,12 +151,17 @@ SIMPLE_DESIGN_TARGETS = [
         "file": "230.png",
         "target": "Find the VISIT CAREERS button"
     },
+    {
+        "folder": "design_A_simple",
+        "file": "230.png",
+        "target": "Find the top news section"
+    },
 
     # Cargill - Corporate website with professional layout
     {
         "folder": "design_A_simple",
         "file": "45.png",
-        "target": "Find the Products & Services menu"
+        "target": "Find \"Site Index\""
     },
     {
         "folder": "design_A_simple",
@@ -90,6 +172,16 @@ SIMPLE_DESIGN_TARGETS = [
         "folder": "design_A_simple",
         "file": "45.png",
         "target": "Find the Recent news section"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "45.png",
+        "target": "Find the \"Worldwide\" link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "45.png",
+        "target": "Find the \"Contact US\" link"
     },
 
     # Sam Noble Museum - University museum with educational content
@@ -108,17 +200,22 @@ SIMPLE_DESIGN_TARGETS = [
         "file": "242.png",
         "target": "Find the video play button"
     },
+    {
+        "folder": "design_A_simple",
+        "file": "242.png",
+        "target": "Find the \"Read more\" button"
+    },
 
     # Sparks Media Net - Minimalist text-based design
     {
         "folder": "design_A_simple",
         "file": "246.png",
-        "target": "Find the classic books link"
+        "target": "Find the \"sparks e-zine\" link"
     },
     {
         "folder": "design_A_simple",
         "file": "246.png",
-        "target": "Find the sparks e-zine link"
+        "target": "Find the classic books link"
     },
     {
         "folder": "design_A_simple",
@@ -130,7 +227,22 @@ SIMPLE_DESIGN_TARGETS = [
     {
         "folder": "design_A_simple",
         "file": "250.png",
-        "target": "Find the Shop menu item"
+        "target": "Find the Register button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "250.png",
+        "target": "Find the \"Sign-UP\" button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "250.png",
+        "target": "Find the \"SEARCH\" button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "250.png",
+        "target": "Find the \"Top sellers\" button"
     },
     {
         "folder": "design_A_simple",
@@ -141,6 +253,28 @@ SIMPLE_DESIGN_TARGETS = [
         "folder": "design_A_simple",
         "file": "250.png",
         "target": "Find the search product field"
+    },
+
+    # union college
+    {
+        "folder": "design_A_simple",
+        "file": "269.png",
+        "target": "Find the \"Admissions\" menu"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "269.png",
+        "target": "Find the search bar"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "269.png",
+        "target": "Find the \"more\" button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "269.png",
+        "target": "Find the triangle shaped button"
     },
 
     # Valve/Steam - Gaming platform with dark background
@@ -159,22 +293,32 @@ SIMPLE_DESIGN_TARGETS = [
         "file": "272.png",
         "target": "Find the Visit Steam link"
     },
+    {
+        "folder": "design_A_simple",
+        "file": "272.png",
+        "target": "Find the playstation logo here"
+    },
 
-    # IBM - Corporate tech website with brain imagery
+    # EServer Drama Collection - Pink drama/theatre site
     {
         "folder": "design_A_simple",
-        "file": "286.png",
-        "target": "Find the Solutions navigation"
+        "file": "79.png",
+        "target": "Find the Criticism menu"
     },
     {
         "folder": "design_A_simple",
-        "file": "286.png",
-        "target": "Find the Search field"
+        "file": "79.png",
+        "target": "Find the Plays link"
     },
     {
         "folder": "design_A_simple",
-        "file": "286.png",
-        "target": "Find the IBM Sign in link"
+        "file": "79.png",
+        "target": "Find the log in link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "79.png",
+        "target": "Find the printer icon here"
     },
 
     # Cake Sweet Cake - Bakery with turquoise background
@@ -191,31 +335,41 @@ SIMPLE_DESIGN_TARGETS = [
     {
         "folder": "design_A_simple",
         "file": "298.png",
-        "target": "Find the Follow Us social icons"
+        "target": "Find the facebook icon"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "298.png",
+        "target": "Find the \"Payment & Delivery\" link"
     },
 
     # Visual.ly - Data visualization platform
     {
         "folder": "design_A_simple",
         "file": "299.png",
-        "target": "Find the CREATE menu button"
+        "target": "Find the CREATE button"
     },
     {
         "folder": "design_A_simple",
         "file": "299.png",
-        "target": "Find the SIGN UP button"
+        "target": "Find the BLOG button"
     },
     {
         "folder": "design_A_simple",
         "file": "299.png",
-        "target": "Find the Search field"
+        "target": "Find the \"Education\" icon"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "299.png",
+        "target": "Find the \"Gaming\" icon"
     },
 
     # Treehouse - Online learning platform
     {
         "folder": "design_A_simple",
         "file": "302.png",
-        "target": "Find the Library menu"
+        "target": "Find the Library button"
     },
     {
         "folder": "design_A_simple",
@@ -225,7 +379,12 @@ SIMPLE_DESIGN_TARGETS = [
     {
         "folder": "design_A_simple",
         "file": "302.png",
-        "target": "Find the Search library field"
+        "target": "Find the \"help\" button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "302.png",
+        "target": "Find the Home button"
     },
 
     # Black Estate - Wine company with minimalist black design
@@ -244,12 +403,27 @@ SIMPLE_DESIGN_TARGETS = [
         "file": "334.png",
         "target": "Find the Join the Black List link"
     },
+    {
+        "folder": "design_A_simple",
+        "file": "334.png",
+        "target": "Find the \"Wines Link\""
+    },
 
     # Cabedge - Design agency with vintage beige theme
     {
         "folder": "design_A_simple",
         "file": "339.png",
-        "target": "Find the METHODS navigation"
+        "target": "Find the facebook link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "339.png",
+        "target": "Find the WORK button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "339.png",
+        "target": "Find the Email address text field"
     },
     {
         "folder": "design_A_simple",
@@ -259,7 +433,7 @@ SIMPLE_DESIGN_TARGETS = [
     {
         "folder": "design_A_simple",
         "file": "339.png",
-        "target": "Find the CONTACT menu"
+        "target": "Find the CONTACT button"
     },
 
     # Flavors - Digital portfolio with photo grid
@@ -267,6 +441,11 @@ SIMPLE_DESIGN_TARGETS = [
         "folder": "design_A_simple",
         "file": "346.png",
         "target": "Find the Get Started button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "346.png",
+        "target": "Find the video play button"
     },
     {
         "folder": "design_A_simple",

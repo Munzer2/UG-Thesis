@@ -6,23 +6,58 @@ These are moderately complex website designs from the design_C_moderate folder.
 """
 
 MODERATE_DESIGN_TARGETS = [
-    # 3B Software - Blue gradient software company
+    # Flash chat
     {
         "folder": "design_C_moderate",
-        "file": "3.png",
-        "target": "Find the PRODUCTS menu"
+        "file": "1.png",
+        "target": "Find the \"Affiliate\" link"
     },
     {
         "folder": "design_C_moderate",
-        "file": "3.png",
-        "target": "Find the CUSTOMER CARE link"
+        "file": "1.png",
+        "target": "Find the \"Learn More\" button"
     },
     {
         "folder": "design_C_moderate",
-        "file": "3.png",
-        "target": "Find the Digital Entertainment section"
+        "file": "1.png",
+        "target": "Find the \"Download button\""
     },
-
+    {
+        "folder": "design_C_moderate",
+        "file": "1.png",
+        "target": "Find the \"Buy License\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "1.png",
+        "target": "Find the \"Reviews\" button"
+    },
+    # Bakersfield.com
+    {
+        "folder": "design_C_moderate",
+        "file": "29.png",
+        "target": "Find the \"Contact US\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "29.png",
+        "target": "Find the \"BUY & SELL\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "29.png",
+        "target": "Find the \"DRIVE\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "29.png",
+        "target": "Find the WiFi icon"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "29.png",
+        "target": "Find the \"STAFF BLOGS\" section"
+    },
     # Short Stories - Purple header story site
     {
         "folder": "design_C_moderate",
@@ -38,6 +73,11 @@ MODERATE_DESIGN_TARGETS = [
         "folder": "design_C_moderate",
         "file": "7.png",
         "target": "Find the search box"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "7.png",
+        "target": "Find the \"The Bear Got Me\" link"
     },
 
     # Ace Project - Project management software
@@ -56,6 +96,11 @@ MODERATE_DESIGN_TARGETS = [
         "file": "8.png",
         "target": "Find the Time Tracking section"
     },
+    {
+        "folder": "design_C_moderate",
+        "file": "8.png",
+        "target": "Find the Collaboration link"
+    },
 
     # Acez.com - Free screensavers with sidebar
     {
@@ -72,6 +117,11 @@ MODERATE_DESIGN_TARGETS = [
         "folder": "design_C_moderate",
         "file": "9.png",
         "target": "Find the 3D Screensavers category"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "9.png",
+        "target": "Find the \"Bookmark us\" button"
     },
 
     # Corante - Blog/weblog site
@@ -90,22 +140,10 @@ MODERATE_DESIGN_TARGETS = [
         "file": "10.png",
         "target": "Find the Comments link"
     },
-
-    # Addresses.com - People lookup directory
     {
         "folder": "design_C_moderate",
-        "file": "11.png",
-        "target": "Find the People Lookup button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "11.png",
-        "target": "Find the Business Lookup button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "11.png",
-        "target": "Find the Reverse Phone Lookup section"
+        "file": "10.png",
+        "target": "Find the \"Advertise\" link"
     },
 
     # Allok Software - Light blue multimedia converter site
@@ -124,6 +162,11 @@ MODERATE_DESIGN_TARGETS = [
         "file": "13.png",
         "target": "Find the Allok Video Converter link"
     },
+    {
+        "folder": "design_C_moderate",
+        "file": "13.png",
+        "target": "Find the \"Allok Video to DVD Burner\" tool"
+    },
 
     # AllPoetry - Poetry community with login
     {
@@ -140,6 +183,11 @@ MODERATE_DESIGN_TARGETS = [
         "folder": "design_C_moderate",
         "file": "14.png",
         "target": "Find the Free contests link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "14.png",
+        "target": "Find the \"Remember me\" checkbox"
     },
 
     # allproducts.com - Product directory
@@ -158,6 +206,11 @@ MODERATE_DESIGN_TARGETS = [
         "file": "15.png",
         "target": "Find the Hot Products section"
     },
+    {
+        "folder": "design_C_moderate",
+        "file": "15.png",
+        "target": "Find the \"Blood Glucose Monitor\" link"
+    },
 
     # aNobii - Red header book sharing site
     {
@@ -174,7 +227,33 @@ MODERATE_DESIGN_TARGETS = [
         "folder": "design_C_moderate",
         "file": "17.png",
         "target": "Find the Recent Activity section"
-    }
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "17.png",
+        "target": "Find the link to \"Great Gatsby\""
+    },
+    # IBM - Corporate tech website with brain imagery
+    {
+        "folder": "design_C_moderate",
+        "file": "286.png",
+        "target": "Find the Solutions navigation"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "286.png",
+        "target": "Find the Search field"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "286.png",
+        "target": "Find the IBM Sign in link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "286.png",
+        "target": "Find the \"Supports & downloads\" navigation link"
+    },
 ]
 
 # Optional: Group by unique website for easier selection

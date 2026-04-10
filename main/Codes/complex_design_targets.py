@@ -22,22 +22,10 @@ COMPLEX_DESIGN_TARGETS = [
         "file": "0.png",
         "target": "Find the Software By Category section"
     },
-
-    # 7is7.com - Minimalist site with red 7 logo
     {
         "folder": "design_B_complex",
-        "file": "4.png",
-        "target": "Find the Travel Stories link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "4.png",
-        "target": "Find the Yet More Software link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "4.png",
-        "target": "Find the Firefox Projects link"
+        "file": "0.png",
+        "target": "Find the Antivirus link"
     },
 
     # A Kid's Heart - Colorful children's educational site
@@ -56,22 +44,32 @@ COMPLEX_DESIGN_TARGETS = [
         "file": "12.png",
         "target": "Find the Featured Games section"
     },
+    {
+        "folder": "design_B_complex",
+        "file": "12.png",
+        "target": "Find the link named www.LivingSocial.com" 
+    },
 
     # ALLSTAR Network - NASA aeronautics educational site
     {
         "folder": "design_B_complex",
         "file": "16.png",
-        "target": "Find the For Teachers button"
+        "target": "Find the \"For Teachers\" button"
     },
     {
         "folder": "design_B_complex",
         "file": "16.png",
-        "target": "Find the HISTORY Level 2 link"
+        "target": "Find the Level 2 link under HISTORY."
     },
     {
         "folder": "design_B_complex",
         "file": "16.png",
         "target": "Find the Hot Links section"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "16.png",
+        "target": "Find the \"Admin/Tools\" link"
     },
 
     # Atlanta Restaurant Guide - Orange restaurant directory
@@ -90,6 +88,11 @@ COMPLEX_DESIGN_TARGETS = [
         "file": "38.png",
         "target": "Find the Happy Hour Bars link"
     },
+    {
+        "folder": "design_B_complex",
+        "file": "38.png",
+        "target": "Find the \"Contact US\" link here"
+    },
 
     # DHMO.org - Dihydrogen Monoxide information site
     {
@@ -106,6 +109,11 @@ COMPLEX_DESIGN_TARGETS = [
         "folder": "design_B_complex",
         "file": "68.png",
         "target": "Find the DHMO.org Store link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "68.png",
+        "target": "Find the \"Click here\" link"
     },
 
     # Download3K - Software download site with sidebar
@@ -124,22 +132,15 @@ COMPLEX_DESIGN_TARGETS = [
         "file": "75.png",
         "target": "Find the On sale now section"
     },
-
-    # EServer Drama Collection - Pink drama/theatre site
     {
         "folder": "design_B_complex",
-        "file": "79.png",
-        "target": "Find the Criticism menu"
+        "file": "75.png",
+        "target": "Find the \"Spyware Doctor\" link."
     },
     {
         "folder": "design_B_complex",
-        "file": "79.png",
-        "target": "Find the Plays link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "79.png",
-        "target": "Find the log in link"
+        "file": "75.png",
+        "target": "Find \"Auslogics Visual Styler 3.1.15\"" 
     },
 
     # Educate-Yourself - Alternative medicine text-heavy site
@@ -156,7 +157,12 @@ COMPLEX_DESIGN_TARGETS = [
     {
         "folder": "design_B_complex",
         "file": "87.png",
-        "target": "Find the Translate this page dropdown"
+        "target": "Find the \"Translate this page\" dropdown"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "87.png",
+        "target": "Find the link of the mirror website address"
     },
 
     # FishLore.com - Tropical fish information site
@@ -175,6 +181,16 @@ COMPLEX_DESIGN_TARGETS = [
         "file": "105.png",
         "target": "Find the Freshwater Fish Species Profiles"
     },
+    {
+        "folder": "design_B_complex",
+        "file": "105.png",
+        "target": "Find the \"Contest Winners\" link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "105.png",
+        "target": "Find the \"UV Sterillizers\" link"
+    },
 
     # GALT - Household and DIY guides with yellow header
     {
@@ -191,6 +207,16 @@ COMPLEX_DESIGN_TARGETS = [
         "folder": "design_B_complex",
         "file": "116.png",
         "target": "Find the Internet Guides link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "116.png",
+        "target": "Find the \"Tivo HD\" link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "116.png",
+        "target": "Find the link named \"XBox Live\""
     },
 
     # Telugu Cinema - Very busy movie site with ads
@@ -209,6 +235,16 @@ COMPLEX_DESIGN_TARGETS = [
         "file": "138.png",
         "target": "Find the Jeevi Reviews menu"
     },
+    {
+        "folder": "design_B_complex",
+        "file": "138.png",
+        "target": "Find the Interviews tab"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "138.png",
+        "target": "Find the reviewer named \"Nanna\""
+    },
 
     # ProBlader - Skating instruction with red/white design
     {
@@ -226,8 +262,18 @@ COMPLEX_DESIGN_TARGETS = [
         "file": "223.png",
         "target": "Find the Corporate Training menu"
     },
+    {
+        "folder": "design_B_complex",
+        "file": "223.png",
+        "target": "Find the \"product catalog\" link"
+    },
 
     # SelectSmart.com - Quiz and selector site
+    {
+        "folder": "design_B_complex",
+        "file": "236.png",
+        "target": "Find the link named \"Random Blasphemies\""
+    },
     {
         "folder": "design_B_complex",
         "file": "236.png",
@@ -244,24 +290,12 @@ COMPLEX_DESIGN_TARGETS = [
         "target": "Find the New SelectSmart Quizzes section"
     },
 
-    # Map Store of Minnesota - Beige map sales site
-    {
-        "folder": "design_B_complex",
-        "file": "307.png",
-        "target": "Find the King Street Atlas link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "307.png",
-        "target": "Find the WALL MAPS section"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "307.png",
-        "target": "Find the Click Here for Daily Deals link"
-    },
-
     # useit.com - Jakob Nielsen's usability website
+    {
+        "folder": "design_B_complex",
+        "file": "308.png",
+        "target": "Find the link named \"UX Basic Training\""
+    },
     {
         "folder": "design_B_complex",
         "file": "308.png",
@@ -275,78 +309,32 @@ COMPLEX_DESIGN_TARGETS = [
     {
         "folder": "design_B_complex",
         "file": "308.png",
-        "target": "Find the Reports section"
+        "target": "Find the link \"Intranet portals\"" 
     },
 
     # UMX Lanyards - Text-heavy lanyard supplier
     {
         "folder": "design_B_complex",
         "file": "309.png",
-        "target": "Find the Plain Lanyards category"
+        "target": "Find the \"Ez\" category"
     },
     {
         "folder": "design_B_complex",
         "file": "309.png",
-        "target": "Find the Badge Holders section"
+        "target": "Find the Badge Holders link"
     },
     {
         "folder": "design_B_complex",
         "file": "309.png",
-        "target": "Find the Safety Breakaway link"
-    },
-
-    # Prestige Legal Services - Purple sidebar detective site
-    {
-        "folder": "design_B_complex",
-        "file": "311.png",
-        "target": "Find the INVESTIGATIONS menu"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "311.png",
-        "target": "Find the Private Investigator link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "311.png",
-        "target": "Find the COURT SERVICES button"
-    },
-
-    # A.R.T. Taxidermy School - Left nav with building photo
-    {
-        "folder": "design_B_complex",
-        "file": "312.png",
-        "target": "Find the Instruction menu"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "312.png",
-        "target": "Find the CLICK HERE FOR 2009 REGISTRATION FORM link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "312.png",
-        "target": "Find the Tuition link"
-    },
-
-    # SPC Marketing Company - Teal background publisher
-    {
-        "folder": "design_B_complex",
-        "file": "313.png",
-        "target": "Find the NAPKIN PITCH MEDIA link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "313.png",
-        "target": "Find the Who's Who in Meat Directory link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "313.png",
-        "target": "Find the American Institute of Architects Reference Directory link"
+        "target": "Find the button \"Buy\""
     },
 
     # New York Barbells - Green/red gym equipment grid
+    {
+        "folder": "design_B_complex",
+        "file": "323.png",
+        "target": "Find the \"search now\" button"
+    },
     {
         "folder": "design_B_complex",
         "file": "323.png",
@@ -361,7 +349,64 @@ COMPLEX_DESIGN_TARGETS = [
         "folder": "design_B_complex",
         "file": "323.png",
         "target": "Find the STRONGMAN EQUIPMENT section"
-    }
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "323.png",
+        "target": "Find \"DRAG SLED\""
+    },
+    # CoolUtils website 
+    {
+        "folder": "design_B_complex",
+        "file": "56.png",
+        "target": "Find the twitter link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "56.png",
+        "target": "Find the \"Forum\" tab"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "56.png",
+        "target": "Find the \"Blog\" button" 
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "56.png",
+        "target": "Find the \"Tiff Paging\" link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "56.png",
+        "target": "Find the \"Total Audio Converter\" link"
+    },
+    # the Post Chronicle website 
+    {
+        "folder": "design_B_complex",
+        "file": "222.png",
+        "target": "Find the Submissions navigation menu" 
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "222.png",
+        "target": "Find the news about the death of Brittany Murphy" 
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "222.png",
+        "target": "Find the news regarding Gun rights" 
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "222.png",
+        "target": "Find the news about the death of Michael Jackson" 
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "222.png",
+        "target": "Find the \"Contact\" button" 
+    }, 
 ]
 
 # Optional: Group by unique website for easier selection
