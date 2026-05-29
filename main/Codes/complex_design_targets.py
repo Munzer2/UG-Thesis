@@ -6,28 +6,6 @@ These are visually dense, information-heavy website designs from the design_B_co
 """
 
 COMPLEX_DESIGN_TARGETS = [
-    # 123 Free Download - Software directory with orange background
-    {
-        "folder": "design_B_complex",
-        "file": "0.png",
-        "target": "Find the MP3 & Audio category"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "0.png",
-        "target": "Find the popular search phrases link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "0.png",
-        "target": "Find the Software By Category section"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "0.png",
-        "target": "Find the Antivirus link"
-    },
-
     # A Kid's Heart - Colorful children's educational site
     {
         "folder": "design_B_complex",
@@ -94,27 +72,6 @@ COMPLEX_DESIGN_TARGETS = [
         "target": "Find the \"Contact US\" link here"
     },
 
-    # DHMO.org - Dihydrogen Monoxide information site
-    {
-        "folder": "design_B_complex",
-        "file": "68.png",
-        "target": "Find the DHMO FAQ link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "68.png",
-        "target": "Find the Special Reports link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "68.png",
-        "target": "Find the DHMO.org Store link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "68.png",
-        "target": "Find the \"Click here\" link"
-    },
 
     # Download3K - Software download site with sidebar
     {
@@ -141,28 +98,6 @@ COMPLEX_DESIGN_TARGETS = [
         "folder": "design_B_complex",
         "file": "75.png",
         "target": "Find \"Auslogics Visual Styler 3.1.15\"" 
-    },
-
-    # Educate-Yourself - Alternative medicine text-heavy site
-    {
-        "folder": "design_B_complex",
-        "file": "87.png",
-        "target": "Find the Chemtrails link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "87.png",
-        "target": "Find the Vaccine Dangers link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "87.png",
-        "target": "Find the \"Translate this page\" dropdown"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "87.png",
-        "target": "Find the link of the mirror website address"
     },
 
     # FishLore.com - Tropical fish information site
@@ -192,32 +127,6 @@ COMPLEX_DESIGN_TARGETS = [
         "target": "Find the \"UV Sterillizers\" link"
     },
 
-    # GALT - Household and DIY guides with yellow header
-    {
-        "folder": "design_B_complex",
-        "file": "116.png",
-        "target": "Find the Health and Fitness link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "116.png",
-        "target": "Find the Travel Guides section"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "116.png",
-        "target": "Find the Internet Guides link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "116.png",
-        "target": "Find the \"Tivo HD\" link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "116.png",
-        "target": "Find the link named \"XBox Live\""
-    },
 
     # Telugu Cinema - Very busy movie site with ads
     {
@@ -246,27 +155,7 @@ COMPLEX_DESIGN_TARGETS = [
         "target": "Find the reviewer named \"Nanna\""
     },
 
-    # ProBlader - Skating instruction with red/white design
-    {
-        "folder": "design_B_complex",
-        "file": "223.png",
-        "target": "Find the FREE Demo Lesson link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "223.png",
-        "target": "Find the Web-Based Virtual Training link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "223.png",
-        "target": "Find the Corporate Training menu"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "223.png",
-        "target": "Find the \"product catalog\" link"
-    },
+    
 
     # SelectSmart.com - Quiz and selector site
     {
@@ -290,27 +179,7 @@ COMPLEX_DESIGN_TARGETS = [
         "target": "Find the New SelectSmart Quizzes section"
     },
 
-    # useit.com - Jakob Nielsen's usability website
-    {
-        "folder": "design_B_complex",
-        "file": "308.png",
-        "target": "Find the link named \"UX Basic Training\""
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "308.png",
-        "target": "Find the Alertbox section"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "308.png",
-        "target": "Find the Usability Week 2012 link"
-    },
-    {
-        "folder": "design_B_complex",
-        "file": "308.png",
-        "target": "Find the link \"Intranet portals\"" 
-    },
+    
 
     # UMX Lanyards - Text-heavy lanyard supplier
     {
@@ -407,6 +276,219 @@ COMPLEX_DESIGN_TARGETS = [
         "file": "222.png",
         "target": "Find the \"Contact\" button" 
     }, 
+
+    # IBM - Corporate tech website with brain imagery
+    # complex
+    {
+        "folder": "design_B_complex",
+        "file": "286.png",
+        "target": "Find the Solutions navigation"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "286.png",
+        "target": "Find the Search field"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "286.png",
+        "target": "Find the IBM Sign in link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "286.png",
+        "target": "Find the \"Supports & downloads\" navigation link"
+    },
+    # Flash chat # This one should be complex. 
+    {
+        "folder": "design_B_complex",
+        "file": "1.png",
+        "target": "Find the \"Affiliate\" link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "1.png",
+        "target": "Find the \"Learn More\" button"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "1.png",
+        "target": "Find the \"Download button\""
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "1.png",
+        "target": "Find the \"Buy License\" button"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "1.png",
+        "target": "Find the \"Reviews\" button"
+    },
+    # Bakersfield.com
+    # complex
+    {
+        "folder": "design_B_complex",
+        "file": "29.png",
+        "target": "Find the \"Contact US\" button"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "29.png",
+        "target": "Find the \"BUY & SELL\" button"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "29.png",
+        "target": "Find the \"DRIVE\" button"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "29.png",
+        "target": "Find the WiFi icon"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "29.png",
+        "target": "Find the \"STAFF BLOGS\" section"
+    },
+    # Short Stories - Purple header story site
+    # complex
+    {
+        "folder": "design_B_complex",
+        "file": "7.png",
+        "target": "Find the fiction category"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "7.png",
+        "target": "Find the story of the day section"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "7.png",
+        "target": "Find the search box"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "7.png",
+        "target": "Find the \"The Bear Got Me\" link"
+    },
+
+    # Ace Project - Project management software
+    # complex
+    {
+        "folder": "design_B_complex",
+        "file": "8.png",
+        "target": "Find the SIGN UP button"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "8.png",
+        "target": "Find the Features link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "8.png",
+        "target": "Find the Time Tracking section"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "8.png",
+        "target": "Find the Collaboration link"
+    },
+
+    # Acez.com - Free screensavers with sidebar
+    # complex
+    {
+        "folder": "design_B_complex",
+        "file": "9.png",
+        "target": "Find the Free Screensavers menu"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "9.png",
+        "target": "Find the Download Free Screensaver link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "9.png",
+        "target": "Find the 3D Screensavers category"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "9.png",
+        "target": "Find the \"Bookmark us\" button"
+    },
+
+    # Corante - Blog/weblog site
+    # complex
+    {
+        "folder": "design_B_complex",
+        "file": "10.png",
+        "target": "Find the In the Pipeline link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "10.png",
+        "target": "Find the CATEGORIES section"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "10.png",
+        "target": "Find the Comments link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "10.png",
+        "target": "Find the \"Advertise\" link"
+    },
+
+    # Allok Software - Light blue multimedia converter site
+    # complex
+    {
+        "folder": "design_B_complex",
+        "file": "13.png",
+        "target": "Find the Products menu"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "13.png",
+        "target": "Find the 3GP PSP MP4 iPod Tools section"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "13.png",
+        "target": "Find the Allok Video Converter link"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "13.png",
+        "target": "Find the \"Allok Video to DVD Burner\" tool"
+    },
+
+    # Cake Sweet Cake - Bakery with turquoise background
+    # this should be in complex class.
+    {
+        "folder": "design_B_complex",
+        "file": "298.png",
+        "target": "Find the Wedding Cakes menu"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "298.png",
+        "target": "Find the VIEW OUR MENU button"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "298.png",
+        "target": "Find the facebook icon"
+    },
+    {
+        "folder": "design_B_complex",
+        "file": "298.png",
+        "target": "Find the \"Payment & Delivery\" link"
+    },
 ]
 
 # Optional: Group by unique website for easier selection

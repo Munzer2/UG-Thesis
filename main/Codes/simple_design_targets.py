@@ -7,6 +7,32 @@ Targets are based on actual visual elements present in the screenshots.
 """
 
 SIMPLE_DESIGN_TARGETS = [
+    # seven
+    {
+        "folder": "design_A_simple",
+        "file": "4.png",
+        "target": "Find the \"Yet another homepage 2.0\" link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "4.png",
+        "target": "Find the \"Komodo dragons\"link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "4.png",
+        "target": "Find the icon of fedora"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "4.png",
+        "target": "Find the \"Copyright\" link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "4.png",
+        "target": "Find the \"Yet more games\" link"
+    },
     # 3B Software - Blue gradient software company
     {
         "folder": "design_A_simple",
@@ -184,27 +210,6 @@ SIMPLE_DESIGN_TARGETS = [
         "target": "Find the \"Contact US\" link"
     },
 
-    # Sam Noble Museum - University museum with educational content
-    {
-        "folder": "design_A_simple",
-        "file": "242.png",
-        "target": "Find the EXHIBITS menu"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "242.png",
-        "target": "Find the Rent the Museum button"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "242.png",
-        "target": "Find the video play button"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "242.png",
-        "target": "Find the \"Read more\" button"
-    },
 
     # Sparks Media Net - Minimalist text-based design
     {
@@ -221,60 +226,6 @@ SIMPLE_DESIGN_TARGETS = [
         "folder": "design_A_simple",
         "file": "246.png",
         "target": "Find the contemporary lit link"
-    },
-
-    # Splitreason - T-shirt shop with grid layout
-    {
-        "folder": "design_A_simple",
-        "file": "250.png",
-        "target": "Find the Register button"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "250.png",
-        "target": "Find the \"Sign-UP\" button"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "250.png",
-        "target": "Find the \"SEARCH\" button"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "250.png",
-        "target": "Find the \"Top sellers\" button"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "250.png",
-        "target": "Find the Login link"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "250.png",
-        "target": "Find the search product field"
-    },
-
-    # union college
-    {
-        "folder": "design_A_simple",
-        "file": "269.png",
-        "target": "Find the \"Admissions\" menu"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "269.png",
-        "target": "Find the search bar"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "269.png",
-        "target": "Find the \"more\" button"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "269.png",
-        "target": "Find the triangle shaped button"
     },
 
     # Valve/Steam - Gaming platform with dark background
@@ -321,27 +272,6 @@ SIMPLE_DESIGN_TARGETS = [
         "target": "Find the printer icon here"
     },
 
-    # Cake Sweet Cake - Bakery with turquoise background
-    {
-        "folder": "design_A_simple",
-        "file": "298.png",
-        "target": "Find the Wedding Cakes menu"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "298.png",
-        "target": "Find the VIEW OUR MENU button"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "298.png",
-        "target": "Find the facebook icon"
-    },
-    {
-        "folder": "design_A_simple",
-        "file": "298.png",
-        "target": "Find the \"Payment & Delivery\" link"
-    },
 
     # Visual.ly - Data visualization platform
     {
@@ -456,7 +386,86 @@ SIMPLE_DESIGN_TARGETS = [
         "folder": "design_A_simple",
         "file": "346.png",
         "target": "Find the LOGIN link"
-    }
+    },
+
+    # AllPoetry - Poetry community with login
+    # simple
+    {
+        "folder": "design_A_simple",
+        "file": "14.png",
+        "target": "Find the Poetry link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "14.png",
+        "target": "Find the Log In button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "14.png",
+        "target": "Find the Free contests link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "14.png",
+        "target": "Find the \"Remember me\" checkbox"
+    },
+    # 123 Free Download - Software directory with orange background
+    # This one should be simple
+    {
+        "folder": "design_A_simple",
+        "file": "0.png",
+        "target": "Find the MP3 & Audio category"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "0.png",
+        "target": "Find the popular search phrases link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "0.png",
+        "target": "Find the Software By Category section"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "0.png",
+        "target": "Find the Antivirus link"
+    },
+
+    # taxidermy
+    {
+        "folder": "design_A_simple",
+        "file": "312.png",
+        "target": "Find the \"email\" link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "312.png",
+        "target": "Find the \"housing\meals\" link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "312.png",
+        "target": "Find the \"Tuition\" link"
+    },
+
+    # Spc
+    {
+        "folder": "design_A_simple",
+        "file": "313.png",
+        "target": "Find the \"Leave Message Now\" button"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "313.png",
+        "target": "Find the \"Interior Designers Source Book\" link"
+    },
+    {
+        "folder": "design_A_simple",
+        "file": "313.png",
+        "target": "Find the \"Napkin pitch media\" button"
+    },
 ]
 
 # Optional: Group by unique website for easier selection

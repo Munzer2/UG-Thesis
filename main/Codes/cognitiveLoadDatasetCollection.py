@@ -48,6 +48,11 @@ class EEGRecorder:
         self.trial_phase = ""     # 'INSTRUCTION', 'FIXATION', or 'TASK'
         self.reaction_time = 0
         
+        # Connection health tracking
+        self.last_data_time = 0        # Timestamp of last received packet
+        self.signal_quality = -1       # 0 = good, 200 = no contact, -1 = unknown
+        self.packets_received = 0      # Total packet counter
+        
     def connect(self):
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         try:
@@ -67,13 +72,35 @@ class EEGRecorder:
         try:
             data = self.socket.recv(4096).decode('utf-8')
             if data:
+                self.last_data_time = time.time()
                 self.buffer += data
                 while '\r' in self.buffer:
                     pkt, self.buffer = self.buffer.split('\r', 1)
-                    try: self._log_packet(json.loads(pkt))
+                    try:
+                        parsed = json.loads(pkt)
+                        self.packets_received += 1
+                        # Track signal quality (poorSignalLevel: 0=good, 200=off head)
+                        if 'poorSignalLevel' in parsed:
+                            self.signal_quality = parsed['poorSignalLevel']
+                        self._log_packet(parsed)
                     except: pass
         except BlockingIOError:
             pass
+    
+    def connection_status(self):
+        """Returns (status_text, color_bgr) for the current connection health"""
+        elapsed = time.time() - self.last_data_time if self.last_data_time > 0 else 999
+        
+        if elapsed > 5.0:
+            return "NO DATA", (0, 0, 200)        # Red
+        elif self.signal_quality == 200:
+            return "NO CONTACT", (0, 100, 255)    # Orange
+        elif self.signal_quality > 50:
+            return f"WEAK (SQ:{self.signal_quality})", (0, 200, 255)  # Yellow
+        elif self.signal_quality >= 0:
+            return f"GOOD (SQ:{self.signal_quality})", (0, 200, 0)    # Green
+        else:
+            return "CONNECTING...", (200, 200, 0)  # Cyan
 
     def _log_packet(self, data):
         """Saves a single data packet with current experiment metadata"""
@@ -155,6 +182,40 @@ def create_screen(text, subtext="", w=1280, h=720, bg=(20, 20, 20)):
         
     return img
 
+def draw_status_overlay(display, recorder, trial_info=""):
+    """Draws a small connection status bar at the top-right corner of any screen.
+    Visible to experimenter but unobtrusive to participant."""
+    h, w = display.shape[:2]
+    status_text, color = recorder.connection_status()
+    font = cv2.FONT_HERSHEY_SIMPLEX
+    
+    # Semi-transparent dark background strip at top-right
+    bar_w, bar_h = 280, 30
+    x1 = w - bar_w - 10
+    y1 = 8
+    overlay = display.copy()
+    cv2.rectangle(overlay, (x1, y1), (x1 + bar_w, y1 + bar_h), (30, 30, 30), -1)
+    cv2.addWeighted(overlay, 0.7, display, 0.3, 0, display)
+    
+    # Status dot (circle)
+    cv2.circle(display, (x1 + 15, y1 + 15), 8, color, -1)
+    
+    # Status text
+    cv2.putText(display, status_text, (x1 + 30, y1 + 22), 
+                font, 0.5, color, 1, cv2.LINE_AA)
+    
+    # Packet count (right side)
+    pkt_text = f"PKT:{recorder.packets_received}"
+    cv2.putText(display, pkt_text, (x1 + 185, y1 + 22),
+                font, 0.4, (150, 150, 150), 1, cv2.LINE_AA)
+    
+    # Trial info (if provided) - small text below status bar
+    if trial_info:
+        cv2.putText(display, trial_info, (x1, y1 + bar_h + 18),
+                    font, 0.4, (120, 120, 120), 1, cv2.LINE_AA)
+    
+    return display
+
 # ==========================================
 # 4. MAIN EXPERIMENT LOGIC
 # ==========================================
@@ -204,27 +265,28 @@ def run_experiment():
     moderate_grouped = group_by_file(moderate_trials)
     complex_grouped = group_by_file(complex_trials)
     
-    # 3. Randomly select 5 unique images from each category
+    # 3. Randomly select 6 unique images from each category
+    IMAGES_PER_CLASS = 6
     session_trials = []
     
-    # Simple: Pick 5 random files
+    # Simple: Pick 6 random files
     simple_files = list(simple_grouped.keys())
     random.shuffle(simple_files)
-    for fname in simple_files[:5]:
+    for fname in simple_files[:IMAGES_PER_CLASS]:
         chosen_target = random.choice(simple_grouped[fname])
         session_trials.append(chosen_target)
     
-    # Moderate: Pick 5 random files
+    # Moderate: Pick 6 random files
     moderate_files = list(moderate_grouped.keys())
     random.shuffle(moderate_files)
-    for fname in moderate_files[:5]:
+    for fname in moderate_files[:IMAGES_PER_CLASS]:
         chosen_target = random.choice(moderate_grouped[fname])
         session_trials.append(chosen_target)
     
-    # Complex: Pick 5 random files
+    # Complex: Pick 6 random files
     complex_files = list(complex_grouped.keys())
     random.shuffle(complex_files)
-    for fname in complex_files[:5]:
+    for fname in complex_files[:IMAGES_PER_CLASS]:
         chosen_target = random.choice(complex_grouped[fname])
         session_trials.append(chosen_target)
     
@@ -232,9 +294,9 @@ def run_experiment():
     random.shuffle(session_trials)
     
     print(f"\nSession Ready: {len(session_trials)} trials prepared")
-    print(f"  - Simple: 5 random images")
-    print(f"  - Moderate: 5 random images")
-    print(f"  - Complex: 5 random images")
+    print(f"  - Simple: {IMAGES_PER_CLASS} random images")
+    print(f"  - Moderate: {IMAGES_PER_CLASS} random images")
+    print(f"  - Complex: {IMAGES_PER_CLASS} random images")
     print("(Each image shown once with a random target)")
 
     # C. SETUP WINDOW
@@ -244,8 +306,20 @@ def run_experiment():
     else:
         cv2.resizeWindow("Experiment", SCREEN_W, SCREEN_H)
 
-    cv2.imshow("Experiment", create_screen("Press SPACE to Start"))
-    cv2.waitKey(0)
+    # Show start screen with live status
+    while True:
+        start_img = create_screen("Press SPACE to Start", "Checking headset connection...")
+        recorder.read_data()
+        start_img = draw_status_overlay(start_img, recorder)
+        cv2.imshow("Experiment", start_img)
+        key = cv2.waitKey(100) & 0xFF
+        if key == 32:  # SPACE
+            break
+        elif key == ord('q'):
+            recorder.save()
+            recorder.socket.close()
+            cv2.destroyAllWindows()
+            return
 
     try:
         for i, trial in enumerate(session_trials):
@@ -258,12 +332,14 @@ def run_experiment():
             recorder.current_image = "instruction_screen"
             recorder.current_label = trial['folder']
             
-            img = create_screen(f"TARGET: {trial['target']}", "Memorize this target...")
-            cv2.imshow("Experiment", img)
+            trial_label = f"Trial {i+1}/{len(session_trials)}"
             
             start_instr = time.time()
             while time.time() - start_instr < 5.0:
                 recorder.read_data()
+                img = create_screen(f"TARGET: {trial['target']}", "Memorize this target...")
+                img = draw_status_overlay(img, recorder, trial_label)
+                cv2.imshow("Experiment", img)
                 if cv2.waitKey(10) == ord('q'): raise KeyboardInterrupt
 
             # ----------------------------------------
@@ -272,11 +348,12 @@ def run_experiment():
             recorder.trial_phase = "FIXATION"
             recorder.current_image = "fixation_cross"
             
-            cv2.imshow("Experiment", create_screen("+"))
-            
             start_fix = time.time()
             while time.time() - start_fix < 1.0:
                 recorder.read_data()
+                fix_img = create_screen("+")
+                fix_img = draw_status_overlay(fix_img, recorder, trial_label)
+                cv2.imshow("Experiment", fix_img)
                 cv2.waitKey(10)
 
             # ----------------------------------------
@@ -300,14 +377,16 @@ def run_experiment():
             x_off = (SCREEN_W - new_w) // 2
             display[y_off:y_off+new_h, x_off:x_off+new_w] = img
             
-            cv2.imshow("Experiment", display)
-            
             # Wait for Response
             start_task = time.time()
             responded = False
             
             while not responded:
                 recorder.read_data()
+                # Refresh display with status overlay
+                disp_with_status = display.copy()
+                disp_with_status = draw_status_overlay(disp_with_status, recorder, trial_label)
+                cv2.imshow("Experiment", disp_with_status)
                 key = cv2.waitKey(5) & 0xFF
                 
                 # SPACE BAR = Found

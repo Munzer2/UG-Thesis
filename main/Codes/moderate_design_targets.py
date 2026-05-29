@@ -6,189 +6,6 @@ These are moderately complex website designs from the design_C_moderate folder.
 """
 
 MODERATE_DESIGN_TARGETS = [
-    # Flash chat
-    {
-        "folder": "design_C_moderate",
-        "file": "1.png",
-        "target": "Find the \"Affiliate\" link"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "1.png",
-        "target": "Find the \"Learn More\" button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "1.png",
-        "target": "Find the \"Download button\""
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "1.png",
-        "target": "Find the \"Buy License\" button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "1.png",
-        "target": "Find the \"Reviews\" button"
-    },
-    # Bakersfield.com
-    {
-        "folder": "design_C_moderate",
-        "file": "29.png",
-        "target": "Find the \"Contact US\" button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "29.png",
-        "target": "Find the \"BUY & SELL\" button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "29.png",
-        "target": "Find the \"DRIVE\" button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "29.png",
-        "target": "Find the WiFi icon"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "29.png",
-        "target": "Find the \"STAFF BLOGS\" section"
-    },
-    # Short Stories - Purple header story site
-    {
-        "folder": "design_C_moderate",
-        "file": "7.png",
-        "target": "Find the fiction category"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "7.png",
-        "target": "Find the story of the day section"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "7.png",
-        "target": "Find the search box"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "7.png",
-        "target": "Find the \"The Bear Got Me\" link"
-    },
-
-    # Ace Project - Project management software
-    {
-        "folder": "design_C_moderate",
-        "file": "8.png",
-        "target": "Find the SIGN UP button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "8.png",
-        "target": "Find the Features link"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "8.png",
-        "target": "Find the Time Tracking section"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "8.png",
-        "target": "Find the Collaboration link"
-    },
-
-    # Acez.com - Free screensavers with sidebar
-    {
-        "folder": "design_C_moderate",
-        "file": "9.png",
-        "target": "Find the Free Screensavers menu"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "9.png",
-        "target": "Find the Download Free Screensaver link"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "9.png",
-        "target": "Find the 3D Screensavers category"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "9.png",
-        "target": "Find the \"Bookmark us\" button"
-    },
-
-    # Corante - Blog/weblog site
-    {
-        "folder": "design_C_moderate",
-        "file": "10.png",
-        "target": "Find the In the Pipeline link"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "10.png",
-        "target": "Find the CATEGORIES section"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "10.png",
-        "target": "Find the Comments link"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "10.png",
-        "target": "Find the \"Advertise\" link"
-    },
-
-    # Allok Software - Light blue multimedia converter site
-    {
-        "folder": "design_C_moderate",
-        "file": "13.png",
-        "target": "Find the Products menu"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "13.png",
-        "target": "Find the 3GP PSP MP4 iPod Tools section"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "13.png",
-        "target": "Find the Allok Video Converter link"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "13.png",
-        "target": "Find the \"Allok Video to DVD Burner\" tool"
-    },
-
-    # AllPoetry - Poetry community with login
-    {
-        "folder": "design_C_moderate",
-        "file": "14.png",
-        "target": "Find the Poetry link"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "14.png",
-        "target": "Find the Log In button"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "14.png",
-        "target": "Find the Free contests link"
-    },
-    {
-        "folder": "design_C_moderate",
-        "file": "14.png",
-        "target": "Find the \"Remember me\" checkbox"
-    },
 
     # allproducts.com - Product directory
     {
@@ -233,26 +50,226 @@ MODERATE_DESIGN_TARGETS = [
         "file": "17.png",
         "target": "Find the link to \"Great Gatsby\""
     },
-    # IBM - Corporate tech website with brain imagery
+
+    # DHMO.org - Dihydrogen Monoxide information site
+    # This one should be moderate
     {
         "folder": "design_C_moderate",
-        "file": "286.png",
-        "target": "Find the Solutions navigation"
+        "file": "68.png",
+        "target": "Find the DHMO FAQ link"
     },
     {
         "folder": "design_C_moderate",
-        "file": "286.png",
-        "target": "Find the Search field"
+        "file": "68.png",
+        "target": "Find the Special Reports link"
     },
     {
         "folder": "design_C_moderate",
-        "file": "286.png",
-        "target": "Find the IBM Sign in link"
+        "file": "68.png",
+        "target": "Find the DHMO.org Store link"
     },
     {
         "folder": "design_C_moderate",
-        "file": "286.png",
-        "target": "Find the \"Supports & downloads\" navigation link"
+        "file": "68.png",
+        "target": "Find the \"Click here\" link"
+    },
+
+    # Educate-Yourself - Alternative medicine text-heavy site
+    # This should be moderate.
+    {
+        "folder": "design_C_moderate",
+        "file": "87.png",
+        "target": "Find the Chemtrails link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "87.png",
+        "target": "Find the Vaccine Dangers link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "87.png",
+        "target": "Find the \"Translate this page\" dropdown"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "87.png",
+        "target": "Find the link of the mirror website address"
+    },
+
+    # GALT - Household and DIY guides with yellow header
+    # This one should be moderate
+    {
+        "folder": "design_C_moderate",
+        "file": "116.png",
+        "target": "Find the Health and Fitness link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "116.png",
+        "target": "Find the Travel Guides section"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "116.png",
+        "target": "Find the Internet Guides link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "116.png",
+        "target": "Find the \"Tivo HD\" link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "116.png",
+        "target": "Find the link named \"XBox Live\""
+    },
+
+    # ProBlader - Skating instruction with red/white design
+    # This one should be moderate
+    {
+        "folder": "design_C_moderate",
+        "file": "223.png",
+        "target": "Find the FREE Demo Lesson link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "223.png",
+        "target": "Find the Web-Based Virtual Training link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "223.png",
+        "target": "Find the Corporate Training menu"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "223.png",
+        "target": "Find the \"product catalog\" link"
+    },
+
+    # useit.com - Jakob Nielsen's usability website
+    # This one should be moderate
+    {
+        "folder": "design_C_moderate",
+        "file": "308.png",
+        "target": "Find the link named \"UX Basic Training\""
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "308.png",
+        "target": "Find the Alertbox section"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "308.png",
+        "target": "Find the Usability Week 2012 link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "308.png",
+        "target": "Find the link \"Intranet portals\"" 
+    },
+
+    # Splitreason - T-shirt shop with grid layout
+    # This one should be in the moderate class
+    {
+        "folder": "design_C_moderate",
+        "file": "250.png",
+        "target": "Find the Register button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "250.png",
+        "target": "Find the \"Sign-UP\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "250.png",
+        "target": "Find the \"SEARCH\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "250.png",
+        "target": "Find the \"Top sellers\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "250.png",
+        "target": "Find the Login link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "250.png",
+        "target": "Find the search product field"
+    },
+
+    # union college
+    # Should be in moderate class.
+    {
+        "folder": "design_C_moderate",
+        "file": "269.png",
+        "target": "Find the \"Admissions\" menu"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "269.png",
+        "target": "Find the search bar"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "269.png",
+        "target": "Find the \"more\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "269.png",
+        "target": "Find the triangle shaped button"
+    },
+
+    # Sam Noble Museum - University museum with educational content
+    # This one should be in moderate class.
+    {
+        "folder": "design_C_moderate",
+        "file": "242.png",
+        "target": "Find the EXHIBITS menu"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "242.png",
+        "target": "Find the Rent the Museum button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "242.png",
+        "target": "Find the video play button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "242.png",
+        "target": "Find the \"Read more\" button"
+    },
+
+    # prestige legal service
+    {
+        "folder": "design_C_moderate",
+        "file": "311.png",
+        "target": "Find the \"Contact us button\""
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "311.png",
+        "target": "Find the \"Surveillance\" service link"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "311.png",
+        "target": "Find the \"Court Services\" button"
+    },
+    {
+        "folder": "design_C_moderate",
+        "file": "311.png",
+        "target": "Find the \"Music on\off\" button"
     },
 ]
 

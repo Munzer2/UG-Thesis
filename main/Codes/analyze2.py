@@ -3,15 +3,24 @@
 Comprehensive EEG Analysis for Cognitive Load Study
 =============================================================
 Analyses:
-  1. Behavioral: Reaction time by complexity
-  2. Spectral:   PSD from cleaned raw EEG per complexity level
-  3. Band Power: Per-band comparison (delta, theta, alpha, beta, gamma)
-  4. EEG Indices: Engagement (beta/alpha), Cognitive Load (theta/beta),
-                  Task Load Index (theta/alpha)
-  5. Per-Subject: Individual participant breakdowns
-  6. Statistical: ANOVA + post-hoc + effect sizes
-  7. Temporal:    Band power evolution within trials
-  8. Correlation: Neural vs Behavioral measures
+  1.  Behavioral:    Reaction time by complexity
+  2.  Spectral:      PSD from cleaned raw EEG per complexity level
+  3.  Band Power:    Per-band comparison (delta, theta, alpha, beta, gamma)
+  4.  EEG Indices:   Engagement (beta/alpha), Cognitive Load (theta/beta),
+                     Task Load Index (theta/alpha)
+  5.  Per-Subject:   Individual participant breakdowns
+  6.  Fatigue:       Time-on-task effects
+  7.  Correlation:   Neural vs Behavioral measures
+  8.  Summary:       Summary table export
+  9.  Attention:     NeuroSky attention level analysis by complexity
+  10. Normality:     Shapiro-Wilk tests for distribution assessment
+  11. FDR:           Benjamini-Hochberg correction on all p-values
+
+Statistical methods following Shahid et al. (2020):
+  - Non-parametric tests (Mann-Whitney U, Kruskal-Wallis)
+  - Benjamini-Hochberg FDR correction for multiple comparisons
+  - Effect sizes (Cohen's d pairwise, eta-squared for omnibus)
+  - Normality assessment (Shapiro-Wilk)
 =============================================================
 """
 
@@ -28,6 +37,7 @@ warnings.filterwarnings('ignore')
 
 from scipy import signal, stats
 from itertools import combinations
+from statsmodels.stats.multitest import multipletests
 
 # ==========================================
 # CONFIGURATION
@@ -58,6 +68,13 @@ LABEL_ORDER = ['Simple', 'Moderate', 'Complex']
 # Color palette
 PALETTE = {'Simple': '#2ecc71', 'Moderate': '#f39c12', 'Complex': '#e74c3c'}
 
+# Merge repeat sessions into a single participant
+# (same person ran the experiment twice)
+PARTICIPANT_MERGE = {
+    'adnan2': 'adnan',
+    'Mushfiq2': 'Mushfiq',
+}
+
 os.makedirs(RESULTS_DIR, exist_ok=True)
 
 # ==========================================
@@ -76,8 +93,10 @@ def load_all_data():
     for f in files:
         df = pd.read_csv(f)
         participant = os.path.basename(f).replace('UI_Exp_', '').replace('.csv', '')
-        # Extract just the name part before underscore+digits
-        name = participant.split('_')[0]
+        # Strip trailing timestamp (e.g., 'Arafat_Hossan_123411' -> 'Arafat_Hossan')
+        name = participant.rsplit('_', 1)[0]
+        # Merge repeat sessions (e.g., adnan2 -> adnan)
+        name = PARTICIPANT_MERGE.get(name, name)
         df['participant'] = name
         df['complexity'] = df['label'].map(LABEL_MAP)
 
@@ -113,11 +132,21 @@ def compute_band_powers(values, fs=SAMPLING_RATE):
     return powers, freqs, psd
 
 
+# Global collector for all p-values (for FDR correction at the end)
+ALL_PVALUES = []  # list of (test_name, p_value)
+
+def record_pvalue(test_name, p):
+    """Record a p-value for later Benjamini-Hochberg FDR correction."""
+    ALL_PVALUES.append((test_name, p))
+    return p
+
+
 def get_sig_stars(p):
     if p < 0.001: return '***'
     if p < 0.01:  return '**'
     if p < 0.05:  return '*'
     return 'ns'
+
 
 def cohens_d(g1, g2):
     """Effect size: Cohen's d."""
@@ -125,6 +154,18 @@ def cohens_d(g1, g2):
     var1, var2 = np.var(g1, ddof=1), np.var(g2, ddof=1)
     pooled_std = np.sqrt(((n1-1)*var1 + (n2-1)*var2) / (n1+n2-2))
     return (np.mean(g1) - np.mean(g2)) / (pooled_std + 1e-10)
+
+
+def eta_squared_kw(H, groups):
+    """Eta-squared effect size for Kruskal-Wallis H test.
+    eta^2_H = (H - k + 1) / (N - k)
+    where k = number of groups, N = total observations.
+    """
+    k = len(groups)
+    N = sum(len(g) for g in groups)
+    if N <= k:
+        return 0.0
+    return (H - k + 1) / (N - k)
 
 
 # ==========================================
@@ -170,7 +211,9 @@ def analyze_reaction_time(raw_df):
 
     if len(groups) >= 2:
         H, p_kw = stats.kruskal(*groups)
-        print(f"  Kruskal-Wallis: H={H:.3f}, p={p_kw:.4f} {get_sig_stars(p_kw)}")
+        record_pvalue('RT_Kruskal', p_kw)
+        eta2 = eta_squared_kw(H, groups)
+        print(f"  Kruskal-Wallis: H={H:.3f}, p={p_kw:.4f} {get_sig_stars(p_kw)}, eta^2={eta2:.4f}")
 
         # Pairwise Mann-Whitney U
         for (i, c1), (j, c2) in combinations(enumerate(LABEL_ORDER), 2):
@@ -178,6 +221,7 @@ def analyze_reaction_time(raw_df):
             g2 = trials[trials['complexity'] == c2]['reaction_time'].values
             if len(g1) > 0 and len(g2) > 0:
                 U, p = stats.mannwhitneyu(g1, g2, alternative='two-sided')
+                record_pvalue(f'RT_{c1}_vs_{c2}', p)
                 d = cohens_d(g1, g2)
                 print(f"  {c1} vs {c2}: U={U:.0f}, p={p:.4f} {get_sig_stars(p)}, Cohen's d={d:.3f}")
 
@@ -337,7 +381,9 @@ def analyze_band_powers(raw_df):
         groups = [g for g in groups if len(g) > 0]
         if len(groups) >= 2:
             H, p = stats.kruskal(*groups)
-            print(f"  {band:<25} {H:>10.3f} {p:>10.4f} {get_sig_stars(p):>5}")
+            record_pvalue(f'Band_{band}_Kruskal', p)
+            eta2 = eta_squared_kw(H, groups)
+            print(f"  {band:<25} {H:>10.3f} {p:>10.4f} {get_sig_stars(p):>5}  eta^2={eta2:.4f}")
 
     print("  → Saved: 3_band_power.png")
     return bp_df
@@ -387,7 +433,9 @@ def analyze_eeg_indices(bp_df):
         groups = [g for g in groups if len(g) > 0]
         if len(groups) >= 2:
             H, p = stats.kruskal(*groups)
-            ax.text(0.02, 0.98, f'H={H:.2f}, p={p:.4f} {get_sig_stars(p)}',
+            record_pvalue(f'Index_{idx_name}_Kruskal', p)
+            eta2 = eta_squared_kw(H, groups)
+            ax.text(0.02, 0.98, f'H={H:.2f}, p={p:.4f} {get_sig_stars(p)}\neta^2={eta2:.4f}',
                     transform=ax.transAxes, fontsize=9, verticalalignment='top',
                     bbox=dict(boxstyle='round', facecolor='wheat', alpha=0.5))
 
@@ -410,6 +458,7 @@ def analyze_eeg_indices(bp_df):
             g2 = bp_df[bp_df['complexity'] == c2][idx_name].values
             if len(g1) > 0 and len(g2) > 0:
                 U, p = stats.mannwhitneyu(g1, g2, alternative='two-sided')
+                record_pvalue(f'Index_{idx_name}_{c1}_vs_{c2}', p)
                 d = cohens_d(g1, g2)
                 print(f"    {c1} vs {c2}: p={p:.4f} {get_sig_stars(p)}, d={d:.3f}")
 
@@ -676,6 +725,186 @@ def generate_summary(raw_df):
 
 
 # ==========================================
+# ANALYSIS 9: NEUROSKY ATTENTION LEVELS
+# ==========================================
+def analyze_attention(raw_df, power_df):
+    """Analyze NeuroSky's attention metric by complexity level.
+    Following Shahid et al. (2020) §4.3.3 which compared
+    attention and relaxation levels using Mann-Whitney U tests.
+    """
+    print("\n" + "="*60)
+    print("ANALYSIS 9: ATTENTION LEVEL BY COMPLEXITY")
+    print("="*60)
+
+    # Power rows during TASK phase contain attention values
+    task_power = power_df[
+        (power_df['phase'] == 'TASK') &
+        (power_df['attention'].notna()) &
+        (power_df['attention'] > 0)
+    ].copy()
+    task_power['complexity'] = task_power['label'].map(LABEL_MAP)
+    task_power = task_power[task_power['complexity'].notna()]
+
+    if task_power.empty:
+        print("  [SKIP] No valid attention data in TASK phase")
+        return
+
+    print(f"  Valid attention readings: {len(task_power)}")
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+    # 9a: Attention by complexity
+    sns.boxplot(data=task_power, x='complexity', y='attention', order=LABEL_ORDER,
+                palette=PALETTE, showfliers=False, ax=axes[0])
+    sns.stripplot(data=task_power, x='complexity', y='attention', order=LABEL_ORDER,
+                  color='black', alpha=0.3, size=3, ax=axes[0])
+    axes[0].set_title('Attention Level by UI Complexity', fontsize=14, fontweight='bold')
+    axes[0].set_ylabel('Attention (0-100)')
+    axes[0].set_xlabel('')
+
+    # 9b: Per-participant attention
+    sns.boxplot(data=task_power, x='complexity', y='attention',
+                hue='participant', order=LABEL_ORDER, showfliers=False, ax=axes[1])
+    axes[1].set_title('Attention by Participant', fontsize=14, fontweight='bold')
+    axes[1].set_ylabel('Attention (0-100)')
+    axes[1].set_xlabel('')
+    axes[1].legend(title='Participant', fontsize=7)
+
+    plt.tight_layout()
+    plt.savefig(f'{RESULTS_DIR}/9_attention.png', dpi=150, bbox_inches='tight')
+    plt.close()
+
+    # Descriptive statistics
+    print("\n  Descriptive Statistics:")
+    for c in LABEL_ORDER:
+        vals = task_power[task_power['complexity'] == c]['attention']
+        if len(vals) > 0:
+            print(f"    {c:>10}: N={len(vals)}, mean={vals.mean():.2f}, "
+                  f"SD={vals.std():.2f}, median={vals.median():.1f}")
+
+    # Kruskal-Wallis omnibus test
+    groups = [task_power[task_power['complexity'] == c]['attention'].values
+              for c in LABEL_ORDER]
+    groups = [g for g in groups if len(g) > 0]
+
+    if len(groups) >= 2:
+        H, p_kw = stats.kruskal(*groups)
+        record_pvalue('Attention_Kruskal', p_kw)
+        eta2 = eta_squared_kw(H, groups)
+        print(f"\n  Kruskal-Wallis: H={H:.3f}, p={p_kw:.4f} {get_sig_stars(p_kw)}, eta^2={eta2:.4f}")
+
+        # Pairwise Mann-Whitney U (following paper's approach)
+        for c1, c2 in combinations(LABEL_ORDER, 2):
+            g1 = task_power[task_power['complexity'] == c1]['attention'].values
+            g2 = task_power[task_power['complexity'] == c2]['attention'].values
+            if len(g1) > 0 and len(g2) > 0:
+                U, p = stats.mannwhitneyu(g1, g2, alternative='two-sided')
+                record_pvalue(f'Attention_{c1}_vs_{c2}', p)
+                d = cohens_d(g1, g2)
+                print(f"  {c1} vs {c2}: U={U:.0f}, p={p:.4f} {get_sig_stars(p)}, d={d:.3f}")
+
+    print("  -> Saved: 9_attention.png")
+
+
+# ==========================================
+# ANALYSIS 10: NORMALITY TESTING
+# ==========================================
+def analyze_normality(raw_df):
+    """Shapiro-Wilk normality tests for key measures per group.
+    Following Shahid et al. (2020) §3.3.3: parametric tests for normal
+    distributions, non-parametric otherwise.
+    """
+    print("\n" + "="*60)
+    print("ANALYSIS 10: NORMALITY ASSESSMENT (Shapiro-Wilk)")
+    print("="*60)
+
+    task_df = raw_df[raw_df['phase'] == 'TASK']
+    trials = task_df.drop_duplicates(subset=['participant', 'image', 'target_instruction'])
+    trials = trials[trials['reaction_time'] > 0]
+
+    print("\n  Testing normality of Reaction Time per complexity group:")
+    print(f"  {'Group':<12} {'N':>6} {'W-stat':>8} {'p-value':>10} {'Normal?':>8}")
+    print(f"  {'-'*48}")
+
+    all_normal = True
+    for c in LABEL_ORDER:
+        vals = trials[trials['complexity'] == c]['reaction_time'].dropna().values
+        if len(vals) >= 3:
+            W, p = stats.shapiro(vals[:5000])  # Shapiro limited to 5000
+            record_pvalue(f'Normality_RT_{c}', p)
+            is_normal = 'Yes' if p > 0.05 else 'No'
+            if p <= 0.05:
+                all_normal = False
+            print(f"  {c:<12} {len(vals):>6} {W:>8.4f} {p:>10.4f} {is_normal:>8}")
+
+    if not all_normal:
+        print("\n  -> Non-normal distributions detected.")
+        print("     Non-parametric tests (Kruskal-Wallis, Mann-Whitney U) are appropriate.")
+    else:
+        print("\n  -> All groups appear normally distributed.")
+        print("     Parametric tests (ANOVA, t-test) could also be used.")
+
+    # Also test EEG band powers
+    print("\n  Testing normality of EEG raw values per complexity group:")
+    for c in LABEL_ORDER:
+        vals = task_df[task_df['complexity'] == c]['value'].dropna().values.astype(float)
+        if len(vals) >= 3:
+            sample = vals[np.random.choice(len(vals), min(5000, len(vals)), replace=False)]
+            W, p = stats.shapiro(sample)
+            record_pvalue(f'Normality_EEG_{c}', p)
+            is_normal = 'Yes' if p > 0.05 else 'No'
+            print(f"  {c:<12} N={len(vals):>8} W={W:.4f} p={p:.6f} Normal={is_normal}")
+
+
+# ==========================================
+# ANALYSIS 11: BENJAMINI-HOCHBERG FDR
+# ==========================================
+def apply_fdr_correction():
+    """Apply Benjamini-Hochberg FDR correction to all collected p-values.
+    Following Shahid et al. (2020) §3.3.3 which applied B-H correction
+    on all statistical results to control false discovery rate.
+    """
+    print("\n" + "="*60)
+    print("ANALYSIS 11: BENJAMINI-HOCHBERG FDR CORRECTION")
+    print("="*60)
+
+    if not ALL_PVALUES:
+        print("  [SKIP] No p-values collected")
+        return
+
+    names = [x[0] for x in ALL_PVALUES]
+    pvals = [x[1] for x in ALL_PVALUES]
+
+    # Apply BH correction
+    reject, pvals_corrected, _, _ = multipletests(pvals, method='fdr_bh', alpha=0.05)
+
+    print(f"\n  Total tests corrected: {len(pvals)}")
+    print(f"\n  {'Test':<45} {'p_raw':>10} {'p_corrected':>12} {'Sig':>5} {'Reject':>7}")
+    print(f"  {'-'*82}")
+
+    sig_count = 0
+    for name, p_raw, p_corr, rej in zip(names, pvals, pvals_corrected, reject):
+        sig = get_sig_stars(p_corr)
+        rej_str = 'Yes' if rej else 'No'
+        if rej:
+            sig_count += 1
+        print(f"  {name:<45} {p_raw:>10.6f} {p_corr:>12.6f} {sig:>5} {rej_str:>7}")
+
+    print(f"\n  Summary: {sig_count}/{len(pvals)} tests remain significant after FDR correction")
+
+    # Save to CSV
+    fdr_df = pd.DataFrame({
+        'Test': names,
+        'p_raw': pvals,
+        'p_corrected': pvals_corrected,
+        'significant': reject,
+    })
+    fdr_path = f'{RESULTS_DIR}/fdr_correction_results.csv'
+    fdr_df.to_csv(fdr_path, index=False)
+    print(f"  -> Saved: {fdr_path}")
+
+
+# ==========================================
 # MAIN
 # ==========================================
 def main():
@@ -694,11 +923,14 @@ def main():
     analyze_eeg_indices(bp_df)            # 4. Cognitive indices
     analyze_per_participant(bp_df)        # 5. Individual differences
     analyze_fatigue(raw_df)               # 6. Time-on-task
-    analyze_correlation(raw_df)           # 7. Neural ↔ Behavioral
+    analyze_correlation(raw_df)           # 7. Neural <-> Behavioral
     generate_summary(raw_df)              # 8. Summary table
+    analyze_attention(raw_df, power_df)   # 9. Attention levels (from paper)
+    analyze_normality(raw_df)             # 10. Normality testing (from paper)
+    apply_fdr_correction()                # 11. BH FDR correction (from paper)
 
     print("\n" + "="*60)
-    print(f"ALL ANALYSES COMPLETE → {RESULTS_DIR}/")
+    print(f"ALL ANALYSES COMPLETE -> {RESULTS_DIR}/")
     print("="*60)
 
 

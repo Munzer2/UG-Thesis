@@ -4,160 +4,128 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import glob
 import os
+from scipy import stats
 
 # ==========================================
 # CONFIGURATION
 # ==========================================
-FILE_PATTERN = "UI_Exp_*.csv"
-RESULTS_DIR = "figures"  
+# POINT TO THE CLEAN DATASET
+DATA_DIR = os.path.join("..", "dataset_clean") 
+FILE_PATTERN = os.path.join(DATA_DIR, "UI_Exp_*.csv")
+RESULTS_DIR = os.path.join("..", "results_analysis")
 
 if not os.path.exists(RESULTS_DIR):
     os.makedirs(RESULTS_DIR)
 
-def load_data():
+def load_clean_data():
+    """Loads clean files and removes artifacts safely."""
     files = glob.glob(FILE_PATTERN)
     if not files:
-        print("No CSV files found!")
+        print(f"[ERROR] No files found in {DATA_DIR}. Did you run preprocessing?")
         return None
 
-    print(f"Loading {len(files)} files...")
+    print(f"Loading {len(files)} clean files...")
     df_list = []
-    for f in files:
-        temp_df = pd.read_csv(f)
-        temp_df['source_file'] = os.path.basename(f)
-        df_list.append(temp_df)
     
+    for f in files:
+        try:
+            temp_df = pd.read_csv(f)
+            temp_df['source_file'] = os.path.basename(f)
+            
+            if 'is_artifact' in temp_df.columns:
+                temp_df['is_artifact'] = temp_df['is_artifact'].fillna(False).astype(bool)
+                
+                # Filter out the marked artifacts
+                temp_df = temp_df[temp_df['is_artifact'] == False]
+            
+            df_list.append(temp_df)
+        except Exception as e:
+            print(f"Warning: Could not read {f}: {e}")
+
+    if not df_list: return None
     df = pd.concat(df_list, ignore_index=True)
     return df
 
-def analyze_all():
-    df = load_data()
-    if df is None: return
+def get_sig_text(p):
+    if p < 0.001: return "***"
+    if p < 0.01:  return "**"
+    if p < 0.05:  return "*"
+    return "ns"
 
+def analyze_all(df):
     # Filter for TASK phase only
     task_df = df[df['phase'] == 'TASK'].copy()
-    
-    print("\n" + "="*40)
-    print("STARTING ANALYSIS")
-    print("="*40)
+    print(f"Total Clean Task Samples: {len(task_df)}")
 
     # ==========================================
-    # 1. BEHAVIORAL: REACTION TIME
+    # 1. BEHAVIORAL (Reaction Time)
     # ==========================================
-    print("Generating 1. Reaction Time Analysis...")
     trials = task_df.drop_duplicates(subset=['subject_id', 'image', 'target_instruction'])
     
-    plt.figure(figsize=(10, 6))
-    sns.barplot(data=trials, x='label', y='reaction_time', palette="viridis", errorbar='sd')
-    plt.title("Reaction Time by Complexity")
-    plt.ylabel("Time (seconds)")
-    plt.xlabel("Website Category")
+    plt.figure(figsize=(8, 6))
+    # FIX 2: Added hue='label' and legend=False
+    sns.barplot(data=trials, x='label', y='reaction_time', hue='label', palette="viridis", errorbar='sd', capsize=0.1, legend=False)
+    plt.title("Reaction Time (Clean Data)")
+    plt.ylabel("Time (s)")
     plt.savefig(f"{RESULTS_DIR}/1_Reaction_Time.png")
     plt.close()
 
     # ==========================================
-    # 2. SIGNAL QUALITY CHECK
+    # 2. EEG: ENGAGEMENT INDEX (Beta / Alpha)
     # ==========================================
-    print("Generating 2. Signal Quality Check...")
-    raw_df = task_df[task_df['type'] == 'raw']
-    if not raw_df.empty:
-        sample_trial = raw_df['image'].unique()[0]
-        sample_data = raw_df[raw_df['image'] == sample_trial].iloc[:2000]
-        
-        plt.figure(figsize=(12, 4))
-        plt.plot(sample_data['timestamp'], sample_data['value'], color='black', linewidth=0.5)
-        plt.axhline(y=200, color='r', linestyle='--')
-        plt.axhline(y=-200, color='r', linestyle='--')
-        plt.title(f"Raw Signal Sample ({sample_trial})")
-        plt.savefig(f"{RESULTS_DIR}/2_Signal_Quality.png")
-        plt.close()
-
-    # ==========================================
-    # 3. COGNITIVE LOAD (THETA/ALPHA)
-    # ==========================================
-    print("Generating 3. Cognitive Load Ratio...")
+    
     power_df = task_df[task_df['type'] == 'power'].copy()
     
-    if not power_df.empty:
-        # Calculate Ratio
-        power_df['theta_alpha_ratio'] = power_df['theta'] / (power_df['alpha'] + 1)
-        
-        # Clean Outliers (Interquartile Range)
-        Q1 = power_df['theta_alpha_ratio'].quantile(0.25)
-        Q3 = power_df['theta_alpha_ratio'].quantile(0.75)
-        IQR = Q3 - Q1
-        clean_data = power_df[
-            (power_df['theta_alpha_ratio'] >= Q1 - 1.5 * IQR) & 
-            (power_df['theta_alpha_ratio'] <= Q3 + 1.5 * IQR)
-        ]
+    if power_df.empty:
+        print("[WARNING] No power data found (Did you delete it?). Skipping EEG plots.")
+        return
 
-        plt.figure(figsize=(10, 6))
-        sns.boxplot(data=clean_data, x='label', y='theta_alpha_ratio', palette="coolwarm", showfliers=False)
-        plt.title("Cognitive Load (Theta/Alpha Ratio)")
-        plt.ylabel("Workload Index")
-        plt.savefig(f"{RESULTS_DIR}/3_Cognitive_Load_Ratio.png")
-        plt.close()
-
-        # ==========================================
-        # 4: BAND POWER BREAKDOWN
-        # ==========================================
-        print("Generating 4. Band Power Breakdown...")
-        possible_bands = [
-            'delta', 'theta', 'alpha', 'beta', 'gamma',  # Simplified names
-            'lowAlpha', 'highAlpha', 'lowBeta', 'highBeta', 'lowGamma', 'midGamma' # Raw names
-        ]
-        
-        # 2. Filter: Only keep the bands that ACTUALLY exist in your CSV
-        existing_bands = [b for b in possible_bands if b in clean_data.columns]
-        
-        if existing_bands:
-            print(f"   -> Found bands: {existing_bands}")
-            
-            # Melt only the columns that exist
-            melted_power = clean_data.melt(
-                id_vars=['label'], 
-                value_vars=existing_bands, 
-                var_name='Band', 
-                value_name='Power'
-            )
-            
-            plt.figure(figsize=(12, 6))
-            sns.barplot(data=melted_power, x='Band', y='Power', hue='label', palette="magma")
-            plt.title("Brainwave Power Spectrum: Simple vs Complex")
-            plt.ylabel("Raw Power")
-            plt.savefig(f"{RESULTS_DIR}/4_Band_Power_Comparison.png")
-            plt.close()
-        else:
-            print("   -> [SKIP] No band columns found! Check your CSV column names.")
-            print(f"   -> Your columns are: {clean_data.columns.tolist()}")
-
-        # ==========================================
-        # 5. ALPHA SUPPRESSION CHECK
-        # ==========================================
-        print("Generating 5. Alpha Suppression Check...")
-        plt.figure(figsize=(10, 6))
-        # We focus specifically on Alpha
-        sns.violinplot(data=clean_data, x='label', y='alpha', palette="Blues", inner="quartile")
-        plt.title("Alpha Suppression Check (Lower Alpha = Higher Focus)")
-        plt.ylabel("Alpha Power")
-        plt.savefig(f"{RESULTS_DIR}/5_Alpha_Suppression.png")
-        plt.close()
-
-    # ==========================================
-    # 6. FATIGUE / LEARNING EFFECT
-    # ==========================================
-    print("Generating 6. Fatigue Analysis...")
-    # We use the index as a proxy for time/order
-    trials = trials.sort_values(by=['timestamp'])
-    trials['trial_order'] = range(1, len(trials) + 1)
+    # Calculate Engagement (Thinking vs Idling)
+    # We add 1e-6 to avoid division by zero
+    power_df['Engagement'] = power_df['beta'] / (power_df['alpha'] + 1e-6)
     
-    plt.figure(figsize=(12, 5))
-    sns.regplot(data=trials, x='trial_order', y='reaction_time', scatter_kws={'alpha':0.5}, line_kws={'color':'red'})
-    plt.title("Fatigue Analysis: Reaction Time over Experiment Duration")
-    plt.xlabel("Trial Order (1 = First Website, N = Last)")
-    plt.ylabel("Reaction Time (s)")
-    plt.savefig(f"{RESULTS_DIR}/6_Fatigue_Analysis.png")
+    # Remove Outliers (Standard IQR method)
+    Q1 = power_df['Engagement'].quantile(0.25)
+    Q3 = power_df['Engagement'].quantile(0.75)
+    IQR = Q3 - Q1
+    clean_power = power_df[
+        (power_df['Engagement'] >= Q1 - 1.5 * IQR) & 
+        (power_df['Engagement'] <= Q3 + 1.5 * IQR)
+    ]
+    
+    # Stats: T-Test Complex vs Simple
+    simple = clean_power[clean_power['label'] == 'design_B_simple']['Engagement']
+    complex_ = clean_power[clean_power['label'] == 'design_A_complex']['Engagement']
+    
+    if len(simple) > 0 and len(complex_) > 0:
+        t, p = stats.ttest_ind(simple, complex_, equal_var=False)
+        print(f"T-Test (Engagement Simple vs Complex): t={t:.2f}, p={p:.4f} {get_sig_text(p)}")
+
+    # Plot
+    plt.figure(figsize=(8, 6))
+    # FIX 3: Added hue='label' and legend=False
+    sns.boxplot(data=clean_power, x='label', y='Engagement', hue='label', palette="coolwarm", showfliers=False, legend=False)
+    plt.title("Visual Engagement Index (Beta / Alpha)")
+    plt.ylabel("Engagement (Higher = More Focus)")
+    plt.savefig(f"{RESULTS_DIR}/2_Engagement_Index.png")
     plt.close()
 
+    # ==========================================
+    # 3. FATIGUE CHECK (Time on Task)
+    # ==========================================
+    trials = trials.sort_values('timestamp')
+    trials['trial_order'] = range(len(trials))
+    
+    plt.figure(figsize=(10, 5))
+    sns.regplot(data=trials, x='trial_order', y='reaction_time', 
+                scatter_kws={'alpha':0.3}, line_kws={'color':'red'})
+    plt.title("Fatigue Check: Reaction Time over Experiment")
+    plt.savefig(f"{RESULTS_DIR}/3_Fatigue_Check.png")
+    plt.close()
+
+    print(f"\n[DONE] Results saved to {RESULTS_DIR}")
+
 if __name__ == "__main__":
-    analyze_all()
+    df = load_clean_data()
+    if df is not None:
+        analyze_all(df)
