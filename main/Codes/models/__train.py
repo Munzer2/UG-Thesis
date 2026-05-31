@@ -48,6 +48,7 @@ from sklearn.metrics import (accuracy_score, f1_score, classification_report,
 # from MSTCNN_A import MSTCNN_A, EEGAugmenter
 
 from MBCN_BiLSTM import MBCN_BiLSTM
+from CNN_Transformer import CNN_Transformer
 from MSTCNN_A import EEGAugmenter
 
 # ==========================================
@@ -444,7 +445,8 @@ def run_loso_cv(raw_data, labels, subjects, base_subjects, class_order, experime
         #     n_classes=n_classes, n_samples=WINDOW_SIZE, dropout=DROPOUT
         # ).to(DEVICE)
 
-        model = MBCN_BiLSTM(n_classes = n_classes, n_samples = WINDOW_SIZE, dropout = DROPOUT).to(DEVICE)
+        # model = MBCN_BiLSTM(n_classes = n_classes, n_samples = WINDOW_SIZE, dropout = DROPOUT).to(DEVICE)
+        model = CNN_Transformer(n_classes = n_classes, n_samples = WINDOW_SIZE, dropout = DROPOUT).to(DEVICE)
 
         # Loss with label smoothing + class weights
         class_weights_t = torch.FloatTensor(class_weights).to(DEVICE)
@@ -645,7 +647,7 @@ def plot_comparison_with_baselines(results_dict):
     axes[0].axhline(y=0.5, color='gray', linestyle='--', alpha=0.6, label='Chance (50%)')
     axes[0].axhline(y=1/3, color='lightgray', linestyle=':', alpha=0.6, label='Chance 3-class (33%)')
     axes[0].set_ylabel('Accuracy')
-    axes[0].set_title('MBCN-BiLSTM — Experiment Comparison\nAccuracy',
+    axes[0].set_title('CNN-Transformer — Experiment Comparison\nAccuracy',
                       fontweight='bold')
     axes[0].set_ylim(0, 1)
     axes[0].legend()
@@ -657,7 +659,7 @@ def plot_comparison_with_baselines(results_dict):
     bars = axes[1].bar(exp_names, f1s, color=colors, alpha=0.85, edgecolor='black')
     axes[1].axhline(y=0.5, color='gray', linestyle='--', alpha=0.6, label='Chance')
     axes[1].set_ylabel('F1 Score (Macro)')
-    axes[1].set_title('MBCN-BiLSTM — Experiment Comparison\nF1 Macro',
+    axes[1].set_title('CNN-Transformer — Experiment Comparison\nF1 Macro',
                       fontweight='bold')
     axes[1].set_ylim(0, 1)
     axes[1].legend()
@@ -678,7 +680,7 @@ def save_results_csv(all_results):
         for fold in results['fold_results']:
             rows.append({
                 'Experiment': exp_name,
-                'Model': 'MBCN-BiLSTM',
+                'Model': 'CNN-Transformer',
                 'Test_Subject': fold['subject'],
                 'Accuracy': fold['accuracy'],
                 'F1_Macro': fold['f1_macro'],
@@ -687,7 +689,7 @@ def save_results_csv(all_results):
             })
         rows.append({
             'Experiment': exp_name,
-            'Model': 'MBCN-BiLSTM',
+            'Model': 'CNN-Transformer',
             'Test_Subject': 'AVERAGE',
             'Accuracy': results['mean_acc'],
             'F1_Macro': results['mean_f1'],
@@ -706,7 +708,7 @@ def save_results_csv(all_results):
 # ==========================================
 def main():
     print("=" * 60)
-    print("EEG Cognitive Load Classification — MBCN-BiLSTM")
+    print("EEG Cognitive Load Classification — CNN-Transformer Hybrid")
     print("=" * 60)
     print(f"  Device: {DEVICE}")
     print(f"  Epochs: {EPOCHS} (fixed, no early stopping)")
@@ -734,6 +736,7 @@ def main():
     all_results = {}
     all_histories = {}
 
+    '''
     # ==================================
     # EXPERIMENT 1: 3-Class (Simple vs Moderate vs Complex)
     # ==================================
@@ -753,6 +756,7 @@ def main():
     )
     all_results['3-Class'] = results_3class
     all_histories['3-Class'] = hist_3
+    '''
 
     # ==================================
     # EXPERIMENT 2: Binary (Simple vs Complex)
@@ -781,9 +785,9 @@ def main():
     print("GENERATING VISUALIZATIONS")
     print(f"{'='*60}")
 
-    plot_training_curves(hist_3, '3-Class')
+    # plot_training_curves(hist_3, '3-Class')
     plot_training_curves(hist_2, 'Binary Simple vs Complex')
-    plot_confusion_matrix(results_3class, class_order_3, '3-Class (S vs M vs C)')
+    # plot_confusion_matrix(results_3class, class_order_3, '3-Class (S vs M vs C)')
     plot_confusion_matrix(results_binary, class_order_2, 'Binary (Simple vs Complex)')
     plot_per_subject_accuracy(results_binary)
     plot_comparison_with_baselines(all_results)
@@ -795,9 +799,9 @@ def main():
     print(f"\n{'='*60}")
     print("FINAL SUMMARY")
     print(f"{'='*60}")
-    print(f"\n  3-Class (Simple vs Moderate vs Complex):")
-    print(f"    Accuracy: {results_3class['mean_acc']:.1%} ± {results_3class['std_acc']:.1%}")
-    print(f"    F1 Macro: {results_3class['mean_f1']:.1%} ± {results_3class['std_f1']:.1%}")
+    # print(f"\n  3-Class (Simple vs Moderate vs Complex):")
+    # print(f"    Accuracy: {results_3class['mean_acc']:.1%} ± {results_3class['std_acc']:.1%}")
+    # print(f"    F1 Macro: {results_3class['mean_f1']:.1%} ± {results_3class['std_f1']:.1%}")
     print(f"\n  Binary (Simple vs Complex):")
     print(f"    Accuracy: {results_binary['mean_acc']:.1%} ± {results_binary['std_acc']:.1%}")
     print(f"    F1 Macro: {results_binary['mean_f1']:.1%} ± {results_binary['std_f1']:.1%}")
