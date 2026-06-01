@@ -722,7 +722,6 @@ def main():
     print(f"  Dropout: {DROPOUT}")
     print(f"  Windowing: trial-aware (no cross-trial contamination)")
     print(f"  Class balance: class-weighted loss (no undersampling)")
-    print(f"  Augmentation: noise + scale + shift + dropout + Mixup")
 
     # ---- Load data (trial-aware windowing) ----
     windows = load_and_window()
