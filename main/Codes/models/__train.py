@@ -49,7 +49,6 @@ from sklearn.metrics import (accuracy_score, f1_score, classification_report,
 
 from MBCN_BiLSTM import MBCN_BiLSTM
 from CNN_Transformer import CNN_Transformer
-from MSTCNN_A import EEGAugmenter
 
 # ==========================================
 # CONFIGURATION
