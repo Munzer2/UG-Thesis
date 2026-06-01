@@ -279,7 +279,10 @@ def train_one_fold(model, train_loader, val_loader, test_data, test_labels,
             batch_X, batch_y = batch_X.to(device), batch_y.to(device)
 
             # Apply augmentation with Mixup (training only!)
-            batch_X, mixed_y = augmenter(batch_X, batch_y)
+            if augmenter is not None:
+                batch_X, mixed_y = augmenter(batch_X, batch_y)
+            else:
+                mixed_y = None
 
             optimizer.zero_grad()
             outputs = model(batch_X)
@@ -464,13 +467,14 @@ def run_loso_cv(raw_data, labels, subjects, base_subjects, class_order, experime
         )
 
         # Data augmentation with Mixup (training only)
-        augmenter = EEGAugmenter(
-            noise_std=0.05,
-            scale_range=(0.8, 1.2),
-            shift_max=50,
-            drop_prob=0.1,
-            mixup_alpha=0.2
-        )
+        # augmenter = EEGAugmenter(
+        #     noise_std=0.05,
+        #     scale_range=(0.8, 1.2),
+        #     shift_max=50,
+        #     drop_prob=0.1,
+        #     mixup_alpha=0.2
+        # )
+        augmenter = None
 
         # Train this fold (fixed epochs, test subject untouched)
         test_preds, history = train_one_fold(
