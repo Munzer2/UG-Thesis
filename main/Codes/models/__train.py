@@ -1,26 +1,4 @@
-"""
-=============================================================
-EEG Cognitive Load Training Pipeline
-=============================================================
-Full training and evaluation pipeline for EEG Cognitive Load.
 
-Pipeline:
-  1. Load cleaned EEG CSVs → filter TASK phase
-  2. Segment into 2-sec windows (50% overlap)
-  3. Per-subject Z-score normalization
-  4. Class balancing (random undersampling)
-  5. LOSO cross-validation with:
-      - Data augmentation (training only)
-      - Label smoothing loss
-      - Cosine annealing LR schedule
-      - Fixed epoch training (no early stopping, no leakage)
-   6. Both 3-class and binary experiments
-  7. Visualization: confusion matrices, per-subject accuracy,
-     training curves, comparison with baselines
-
-Results saved to: results_models/
-=============================================================
-"""
 
 import pandas as pd
 import numpy as np
@@ -48,7 +26,8 @@ from sklearn.metrics import (accuracy_score, f1_score, classification_report,
 # from MSTCNN_A import MSTCNN_A, EEGAugmenter
 
 from MBCN_BiLSTM import MBCN_BiLSTM
-from CNN_Transformer import CNN_Transformer
+from EEG_TCN import EEG_TCN
+from MSTCNN_A import EEGAugmenter
 
 # ==========================================
 # CONFIGURATION
@@ -448,7 +427,8 @@ def run_loso_cv(raw_data, labels, subjects, base_subjects, class_order, experime
         # ).to(DEVICE)
 
         # model = MBCN_BiLSTM(n_classes = n_classes, n_samples = WINDOW_SIZE, dropout = DROPOUT).to(DEVICE)
-        model = CNN_Transformer(n_classes = n_classes, n_samples = WINDOW_SIZE, dropout = DROPOUT).to(DEVICE)
+        # model = CNN_Transformer(n_classes = n_classes, n_samples = WINDOW_SIZE, dropout = DROPOUT).to(DEVICE)
+        model = EEG_TCN(n_classes = n_classes, n_samples = WINDOW_SIZE).to(DEVICE)
 
         # Loss with label smoothing + class weights
         class_weights_t = torch.FloatTensor(class_weights).to(DEVICE)
@@ -650,7 +630,7 @@ def plot_comparison_with_baselines(results_dict):
     axes[0].axhline(y=0.5, color='gray', linestyle='--', alpha=0.6, label='Chance (50%)')
     axes[0].axhline(y=1/3, color='lightgray', linestyle=':', alpha=0.6, label='Chance 3-class (33%)')
     axes[0].set_ylabel('Accuracy')
-    axes[0].set_title('CNN-Transformer — Experiment Comparison\nAccuracy',
+    axes[0].set_title('EEG-TCN — Experiment Comparison\nAccuracy',
                       fontweight='bold')
     axes[0].set_ylim(0, 1)
     axes[0].legend()
@@ -662,7 +642,7 @@ def plot_comparison_with_baselines(results_dict):
     bars = axes[1].bar(exp_names, f1s, color=colors, alpha=0.85, edgecolor='black')
     axes[1].axhline(y=0.5, color='gray', linestyle='--', alpha=0.6, label='Chance')
     axes[1].set_ylabel('F1 Score (Macro)')
-    axes[1].set_title('CNN-Transformer — Experiment Comparison\nF1 Macro',
+    axes[1].set_title('EEG-TCN — Experiment Comparison\nF1 Macro',
                       fontweight='bold')
     axes[1].set_ylim(0, 1)
     axes[1].legend()
@@ -683,7 +663,7 @@ def save_results_csv(all_results):
         for fold in results['fold_results']:
             rows.append({
                 'Experiment': exp_name,
-                'Model': 'CNN-Transformer',
+                'Model': 'EEG-TCN',
                 'Test_Subject': fold['subject'],
                 'Accuracy': fold['accuracy'],
                 'F1_Macro': fold['f1_macro'],
@@ -692,7 +672,7 @@ def save_results_csv(all_results):
             })
         rows.append({
             'Experiment': exp_name,
-            'Model': 'CNN-Transformer',
+            'Model': 'EEG-TCN',
             'Test_Subject': 'AVERAGE',
             'Accuracy': results['mean_acc'],
             'F1_Macro': results['mean_f1'],
@@ -711,7 +691,7 @@ def save_results_csv(all_results):
 # ==========================================
 def main():
     print("=" * 60)
-    print("EEG Cognitive Load Classification — CNN-Transformer Hybrid")
+    print("EEG Cognitive Load Classification — EEG-TCN")
     print("=" * 60)
     print(f"  Device: {DEVICE}")
     print(f"  Epochs: {EPOCHS} (fixed, no early stopping)")
